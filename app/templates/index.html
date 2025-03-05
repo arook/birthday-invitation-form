@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block title %}Birthday Party Registration{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h2 class="h4 mb-0"><i class="fas fa-gift me-2"></i>Birthday Party Registration</h2>
+            </div>
+            <div class="card-body">
+                <div class="mb-4">
+                    <p>Join us for a memorable birthday celebration! Please fill out the form below to register for the event.</p>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>Event Details:
+                        <ul class="mb-0 mt-2">
+                            <li><strong>Date:</strong> Saturday, July 15th, 2023</li>
+                            <li><strong>Time:</strong> 7:00 PM - 11:00 PM</li>
+                            <li><strong>Location:</strong> Crystal Garden Venue, 123 Party Lane</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <form method="POST" action="{{ url_for('main.index') }}" novalidate>
+                    {{ form.csrf_token }}
+                    
+                    <div class="mb-3">
+                        {{ form.full_name.label(class="form-label fw-bold") }}
+                        {{ form.full_name(class="form-control" + (" is-invalid" if form.full_name.errors else ""), placeholder="Enter your full name") }}
+                        {% if form.full_name.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.full_name.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.email.label(class="form-label fw-bold") }}
+                        {{ form.email(class="form-control" + (" is-invalid" if form.email.errors else ""), placeholder="Enter your email address") }}
+                        {% if form.email.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">We'll send a confirmation email to this address.</div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            {{ form.phone.label(class="form-label fw-bold") }}
+                            {{ form.phone(class="form-control" + (" is-invalid" if form.phone.errors else ""), placeholder="Enter your phone number (optional)") }}
+                            {% if form.phone.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.phone.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form.age.label(class="form-label fw-bold") }}
+                            {{ form.age(class="form-control" + (" is-invalid" if form.age.errors else ""), placeholder="Enter your age (optional)") }}
+                            {% if form.age.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.age.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.attending.label(class="form-label fw-bold") }}
+                        <div>
+                            {% for subfield in form.attending %}
+                            <div class="form-check">
+                                {{ subfield(class="form-check-input") }}
+                                {{ subfield.label(class="form-check-label") }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% if form.attending.errors %}
+                            <div class="text-danger">
+                                {% for error in form.attending.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3" id="guests-container">
+                        {{ form.guests.label(class="form-label fw-bold") }}
+                        {{ form.guests(class="form-control" + (" is-invalid" if form.guests.errors else ""), value=0, min=0, max=5) }}
+                        {% if form.guests.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.guests.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">Maximum 5 additional guests.</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form.dietary_restrictions.label(class="form-label fw-bold") }}
+                        {{ form.dietary_restrictions(class="form-control" + (" is-invalid" if form.dietary_restrictions.errors else ""), placeholder="Please let us know if you have any dietary restrictions or preferences (optional)", rows=3) }}
+                        {% if form.dietary_restrictions.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.dietary_restrictions.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        {{ form.message.label(class="form-label fw-bold") }}
+                        {{ form.message(class="form-control" + (" is-invalid" if form.message.errors else ""), placeholder="Leave a message for the host (optional)", rows=3) }}
+                        {% if form.message.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.message.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-grid">
+                        {{ form.submit(class="btn btn-primary btn-lg") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Show/hide guests field based on attendance selection
+    document.addEventListener('DOMContentLoaded', function() {
+        const attendingRadios = document.querySelectorAll('input[name="attending"]');
+        const guestsContainer = document.getElementById('guests-container');
+        
+        function toggleGuestsVisibility() {
+            const attendingValue = document.querySelector('input[name="attending"]:checked').value;
+            guestsContainer.style.display = attendingValue === 'yes' ? 'block' : 'none';
+        }
+        
+        // Initial check
+        toggleGuestsVisibility();
+        
+        // Add change listeners
+        attendingRadios.forEach(radio => {
+            radio.addEventListener('change', toggleGuestsVisibility);
+        });
+    });
+</script>
+{% endblock %} 

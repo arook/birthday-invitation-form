@@ -1,0 +1,139 @@
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Header and Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+}
+
+.display-4 {
+    font-weight: 700;
+    color: #4a6bdf;
+}
+
+.text-primary {
+    color: #4a6bdf !important;
+}
+
+.bg-primary {
+    background-color: #4a6bdf !important;
+}
+
+.btn-primary {
+    background-color: #4a6bdf;
+    border-color: #3a5bcf;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: #3a5bcf;
+    border-color: #2a4bbf;
+}
+
+/* Cards and Containers */
+.card {
+    border-radius: 12px;
+    border: none;
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 1.25rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.card-body {
+    padding: 1.75rem;
+}
+
+.alert {
+    border-radius: 10px;
+}
+
+.alert-info {
+    background-color: #e0f5ff;
+    border-color: #b8e5ff;
+    color: #0077cc;
+}
+
+.alert-success {
+    background-color: #e2f8ee;
+    border-color: #c3f0de;
+    color: #00b377;
+}
+
+.alert-warning {
+    background-color: #fff9e6;
+    border-color: #ffe0b2;
+    color: #cc8800;
+}
+
+.alert-error, .alert-danger {
+    background-color: #ffe6e6;
+    border-color: #ffcccc;
+    color: #cc0000;
+}
+
+/* Form Elements */
+.form-control {
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #ced4da;
+}
+
+.form-control:focus {
+    border-color: #4a6bdf;
+    box-shadow: 0 0 0 0.25rem rgba(74, 107, 223, 0.25);
+}
+
+.form-label {
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+.form-text {
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+
+.form-check-input:checked {
+    background-color: #4a6bdf;
+    border-color: #4a6bdf;
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Button Styles */
+.btn {
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.btn-lg {
+    padding: 0.75rem 1.75rem;
+    font-size: 1.1rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1.25rem;
+    }
+    
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+} 
