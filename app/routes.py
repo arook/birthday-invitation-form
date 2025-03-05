@@ -6,7 +6,7 @@ from app import db
 
 main_bp = Blueprint('main', __name__)
 
-@main_bp.route('/', methods=['GET', 'POST'])
+@main_bp.route('/demo', methods=['GET', 'POST'])
 def index():
     form = RegistrationForm()
     
@@ -52,6 +52,6 @@ def index():
     
     return render_template('index.html', form=form)
 
-@main_bp.route('/thank-you')
+@main_bp.route('/demo/thank-you')
 def thank_you():
     return render_template('thank_you.html') 
